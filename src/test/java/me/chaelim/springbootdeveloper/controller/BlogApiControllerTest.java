@@ -3,7 +3,7 @@ package me.chaelim.springbootdeveloper.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.chaelim.springbootdeveloper.domain.Article;
 import me.chaelim.springbootdeveloper.dto.request.AddArticleRequestDto;
-import me.chaelim.springbootdeveloper.dto.request.UpdateArticleRequest;
+import me.chaelim.springbootdeveloper.dto.request.UpdateArticleRequestDto;
 import me.chaelim.springbootdeveloper.repository.BlogRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -156,7 +156,7 @@ class BlogApiControllerTest {
         final String newTitle = "newTitle";
         final String newContent = "newContent";
 
-        UpdateArticleRequest request = new UpdateArticleRequest(newTitle, newContent);
+        UpdateArticleRequestDto request = new UpdateArticleRequestDto(newTitle, newContent);
 
         //when
         mockMvc.perform(put(url, savedArticle.getId())

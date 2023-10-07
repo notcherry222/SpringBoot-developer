@@ -3,7 +3,7 @@ package me.chaelim.springbootdeveloper.controller;
 import lombok.RequiredArgsConstructor;
 import me.chaelim.springbootdeveloper.domain.Article;
 import me.chaelim.springbootdeveloper.dto.request.AddArticleRequestDto;
-import me.chaelim.springbootdeveloper.dto.request.UpdateArticleRequest;
+import me.chaelim.springbootdeveloper.dto.request.UpdateArticleRequestDto;
 import me.chaelim.springbootdeveloper.dto.response.ArticleResponseDto;
 import me.chaelim.springbootdeveloper.service.BlogService;
 import org.springframework.http.HttpStatus;
@@ -54,7 +54,7 @@ public class BlogApiController {
     }
 
     @PutMapping("/api/articles/{id}")
-    public ResponseEntity<Article> updateArticle(@PathVariable long id, @RequestBody UpdateArticleRequest request) {
+    public ResponseEntity<Article> updateArticle(@PathVariable long id, @RequestBody UpdateArticleRequestDto request) {
         Article updatedArticle = blogService.update(id, request);
 
         return ResponseEntity.ok()

@@ -39,7 +39,7 @@ public class BlogViewController {
         return "article";
     }
 
-    //새로운 포스트
+    //수정화면을 보여주기 위한 컨트롤러
     @GetMapping("/new-article")
     public String newArticle(@RequestParam(required = false) Long id, Model model){
         if(id == null){

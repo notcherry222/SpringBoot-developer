@@ -3,7 +3,7 @@ package me.chaelim.springbootdeveloper.service;
 import lombok.RequiredArgsConstructor;
 import me.chaelim.springbootdeveloper.domain.Article;
 import me.chaelim.springbootdeveloper.dto.request.AddArticleRequestDto;
-import me.chaelim.springbootdeveloper.dto.request.UpdateArticleRequest;
+import me.chaelim.springbootdeveloper.dto.request.UpdateArticleRequestDto;
 import me.chaelim.springbootdeveloper.repository.BlogRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,9 +33,10 @@ public class BlogService {
     public void delete(long id) {
         blogRepository.deleteById(id);
     }
+
     //글 수정
     @Transactional // 매칭한 메소드를 하나의 트랜잭션으로 묶는 역할을 함 ex> 출금과 입금
-    public Article update(long id, UpdateArticleRequest request){
+    public Article update(long id, UpdateArticleRequestDto request){
         Article article = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : "+ id));
 

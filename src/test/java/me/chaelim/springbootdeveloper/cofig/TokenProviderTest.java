@@ -68,6 +68,19 @@ public class TokenProviderTest {
     @DisplayName("validToken() : 유효한 토큰인 때에 유효성 검증에 성공한다.")
     void validToken_validToken() {
         //given
+        String token = JwtFactory.withDefaultValues().createToken(jwtProperties);
+
+        //when
+        boolean result = tokenProvider.validToken(token);
+
+        //then
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    @DisplayName("getAuthentication() : 토큰 기반으로 인증 정보를 가져올 수 있다.")
+    void getAuthentication() {
+        //given
         String email = "user@email.com";
         String token = JwtFactory.builder()
                 .subject(email)

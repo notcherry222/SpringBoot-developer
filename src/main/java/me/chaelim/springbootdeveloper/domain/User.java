@@ -26,10 +26,13 @@ public class User implements UserDetails {
     private String email;
     @Column(name = "password")
     private String password;
+    @Column(name = "nickname", unique = true)
+    private String nickname;
     @Builder
-    public User(String email, String password, String auth){
+    public User(String email, String password, String nickname){
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
     }
 
     @Override
@@ -39,10 +42,6 @@ public class User implements UserDetails {
     @Override // 사용자의 id를 반환 (고유한 값)
     public String getUsername() {
         return email;
-    }
-    @Override
-    public String getPassword() {
-        return password;
     }
     @Override // 계정 만료 여부 반환
     public boolean isAccountNonExpired() {
@@ -59,5 +58,9 @@ public class User implements UserDetails {
     @Override // 계정 사용 가능 여부 반환
     public boolean isEnabled() {
         return true; // 사용 가능 -> true
+    }
+    public User update(String nickname) { //사용자 이름 변경
+        this.nickname = nickname;
+        return this;
     }
 }

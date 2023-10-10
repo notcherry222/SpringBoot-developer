@@ -1,8 +1,98 @@
 package me.chaelim.springbootdeveloper.cofig;
 
+import io.jsonwebtoken.Jwts;
+import me.chaelim.springbootdeveloper.config.JwtProperties;
+import me.chaelim.springbootdeveloper.config.TokenProvider;
+import me.chaelim.springbootdeveloper.domain.User;
+import me.chaelim.springbootdeveloper.repository.UserRepository;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.time.Duration;
+import java.util.Date;
+import java.util.Map;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
 public class TokenProviderTest {
+    @Autowired
+    private TokenProvider tokenProvider;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private JwtProperties jwtProperties;
 
+    //generateToken 검증 테스트
+    @Test
+    @DisplayName("generateToken() : 유저 정보의 만료 기간을 전달해 토큰을 만들 수 있다.")
+    void generateToken() {
+        //given
+        User testUser = userRepository.save(User.builder()
+                .email("user@gmail.com")
+                .password("test")
+                .build());
+
+        //when
+        String token = tokenProvider.generateToken(testUser, Duration.ofDays(14));
+
+        //then
+        Long userId = Jwts.parser()
+                .setSigningKey(jwtProperties.getSecretKey())
+                .parseClaimsJws(token)
+                .getBody()
+                .get("id", Long.class);
+        assertThat(userId).isEqualTo(testUser.getId());
+    }
+
+    @Test
+    @DisplayName("validToken() : 완료된 토큰인 때에 유효성 검증에 실패한다.")
+    void validToken_invalidToken() {
+        //given
+        String token = JwtFactory.builder()
+                .expiration(new Date(new Date().getTime() - Duration.ofDays(7).toMillis()))
+                .build().createToken(jwtProperties);
+
+        //when
+        boolean result = tokenProvider.validToken(token);
+
+        //then
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    @DisplayName("validToken() : 유효한 토큰인 때에 유효성 검증에 성공한다.")
+    void validToken_validToken() {
+        //given
+        String email = "user@email.com";
+        String token = JwtFactory.builder()
+                .subject(email)
+                .build().createToken(jwtProperties);
+
+        //when
+        Authentication authentication= tokenProvider.getAuthentication(token);
+
+        //then
+        assertThat(((UserDetails) authentication.getPrincipal()).getUsername()).isEqualTo(email);
+    }
+
+    @Test
+    @DisplayName("getUserId() : 토큰으로 유저 아이디 가져올 수 있다.")
+    void getUserId() {
+        //given
+        Long userId = 1L;
+        String token = JwtFactory.builder()
+                .claims(Map.of("id", userId))
+                .build().createToken(jwtProperties);
+
+        //when
+        Long userIdByToken = tokenProvider.getUserId(token);
+
+        //then
+        assertThat(userIdByToken).isEqualTo(userId);
+    }
 }

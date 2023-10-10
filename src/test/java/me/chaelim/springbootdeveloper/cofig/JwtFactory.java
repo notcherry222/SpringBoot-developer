@@ -4,7 +4,6 @@ import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import me.chaelim.springbootdeveloper.config.JwtProperties;
 
@@ -12,7 +11,6 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
-import java.util.TreeMap;
 
 @Getter
 public class JwtFactory {

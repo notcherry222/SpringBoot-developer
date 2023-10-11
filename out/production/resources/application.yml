@@ -12,6 +12,16 @@ spring :
   h2 :  #h2 콘솔 활성화
     console :
        enabled : true
+  security :
+    oauth2 :
+      client :
+        registration :
+          google :
+            client-id : 2828163046-klqnff1m218d1ej274ftcoee595h15q6.apps.googleusercontent.com
+            client-secret : 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
+            scope :
+              -email
+              -profile
 jwt:
   issuer: ajufresh@gmail.com
   secret_key: study-springboot

@@ -16,8 +16,8 @@ public class BlogService {
     private final BlogRepository blogRepository;
 
     //블로그 글 추가 메서드
-    public Article save(AddArticleRequestDto request){
-        return blogRepository.save(request.toEntity()); // toEntity: 빌더패턴을 사용해 dto를 엔터티로 만들어주는 메서드
+    public Article save(AddArticleRequestDto request, String userName){
+        return blogRepository.save(request.toEntity(userName)); // toEntity: 빌더패턴을 사용해 dto를 엔터티로 만들어주는 메서드
     }
     //글 목록 조회
     public List<Article> findAll() {

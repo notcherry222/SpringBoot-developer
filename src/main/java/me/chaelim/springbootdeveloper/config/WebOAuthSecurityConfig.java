@@ -70,7 +70,7 @@ public class WebOAuthSecurityConfig {
 
         //api로 시작하는 url인 경우 401 상태 코드를 반환하도록 예외처리
         http.exceptionHandling()
-                .defaultAccessDeniedHandlerFor(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
+                .defaultAuthenticationEntryPointFor(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
                         new AntPathRequestMatcher("/api/**"));
         return http.build();
     }

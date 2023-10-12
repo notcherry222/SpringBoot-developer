@@ -5,7 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Builder;
 import lombok.Getter;
-import me.chaelim.springbootdeveloper.config.JwtProperties;
+import me.chaelim.springbootdeveloper.config.jwt.JwtProperties;
 
 import java.time.Duration;
 import java.util.Collections;

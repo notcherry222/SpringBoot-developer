@@ -35,7 +35,7 @@ public class CookieUtil {
     }
 
     //객체 직렬화 후 쿠키 값으로 변환
-    public static String Serialize(Object obj) {
+    public static String serialize(Object obj) {
         return Base64.getUrlEncoder()
                 .encodeToString(SerializationUtils.serialize(obj));
     }

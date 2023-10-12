@@ -1,4 +1,4 @@
-package me.chaelim.springbootdeveloper.config;
+package me.chaelim.springbootdeveloper.config.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;

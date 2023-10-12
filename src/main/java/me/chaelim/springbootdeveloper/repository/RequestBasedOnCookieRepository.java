@@ -12,7 +12,6 @@ import org.springframework.web.util.WebUtils;
 /**
  * OAuth2에 필요한 저보를 세션이 아닌, 쿠키에 저장해서 쓸 수 있도록 인증 요청 관련 상태를 저장할 저장소
  */
-@Repository
 public class RequestBasedOnCookieRepository implements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
 
     public final static String AUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME = "oauth2_auth_request";
@@ -34,7 +33,7 @@ public class RequestBasedOnCookieRepository implements AuthorizationRequestRepos
             removeAuthorizationRequest(request, response);
             return;
         }
-        CookieUtil.addCookie(response, AUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME, CookieUtil.Serialize(authorizationRequest), COOKIE_EXPIRE_SECONDS);
+        CookieUtil.addCookie(response, AUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME, CookieUtil.serialize(authorizationRequest), COOKIE_EXPIRE_SECONDS);
     }
 
     public void removeAuthorizationRequestCookies(HttpServletRequest request, HttpServletResponse response) {

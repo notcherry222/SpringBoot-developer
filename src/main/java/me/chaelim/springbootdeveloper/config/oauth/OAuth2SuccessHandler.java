@@ -1,9 +1,9 @@
-package me.chaelim.springbootdeveloper.config.ouath;
+package me.chaelim.springbootdeveloper.config.oauth;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import me.chaelim.springbootdeveloper.config.TokenProvider;
+import me.chaelim.springbootdeveloper.config.jwt.TokenProvider;
 import me.chaelim.springbootdeveloper.domain.RefreshToken;
 import me.chaelim.springbootdeveloper.domain.User;
 import me.chaelim.springbootdeveloper.repository.RefreshTokenRepository;
@@ -71,7 +71,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     //인증 관련 설정값, 쿠키 제거
     private void ClearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
         super.clearAuthenticationAttributes(request);
-        authorizationRequestRepository.removeAuthorizationRequestCookie(request, response);
+        authorizationRequestRepository.removeAuthorizationRequestCookies(request, response);
     }
 
     //액세스 토큰을 패스에 추가

@@ -1,4 +1,4 @@
-package me.chaelim.springbootdeveloper.config.ouath;
+package me.chaelim.springbootdeveloper.config.oauth;
 
 import lombok.RequiredArgsConstructor;
 import me.chaelim.springbootdeveloper.domain.User;

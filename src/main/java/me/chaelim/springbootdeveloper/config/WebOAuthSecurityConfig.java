@@ -1,9 +1,11 @@
 package me.chaelim.springbootdeveloper.config;
 
+
 import lombok.RequiredArgsConstructor;
-import me.chaelim.springbootdeveloper.config.ouath.OAuth2AuthorizationRequestBasedOnCookieRepository;
-import me.chaelim.springbootdeveloper.config.ouath.OAuth2SuccessHandler;
-import me.chaelim.springbootdeveloper.config.ouath.OAuth2UserCustomService;
+import me.chaelim.springbootdeveloper.config.jwt.TokenProvider;
+import me.chaelim.springbootdeveloper.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
+import me.chaelim.springbootdeveloper.config.oauth.OAuth2SuccessHandler;
+import me.chaelim.springbootdeveloper.config.oauth.OAuth2UserCustomService;
 import me.chaelim.springbootdeveloper.repository.RefreshTokenRepository;
 import me.chaelim.springbootdeveloper.service.UserService;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +21,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
-
 @RequiredArgsConstructor
 @Configuration
 public class WebOAuthSecurityConfig {
@@ -30,9 +31,9 @@ public class WebOAuthSecurityConfig {
 
     @Bean
     public WebSecurityCustomizer configure() {
-        return (web -> web.ignoring() //스프링 시큐리티 비활성화
+        return (web) -> web.ignoring() //스프링 시큐리티 비활성화
                 .requestMatchers(toH2Console())
-                .requestMatchers("/img/**","/css/**","/js/**"));
+                .requestMatchers("/img/**","/css/**","/js/**");
     }
 
     @Bean
@@ -50,7 +51,7 @@ public class WebOAuthSecurityConfig {
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         //토큰 재발급 url은 인증 없이 접근 가능하도록 설정, 나머지 api url은 인증 필요
-        http.authorizeHttpRequests()
+        http.authorizeRequests()
                 .requestMatchers("/api/token").permitAll()
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll();
@@ -66,19 +67,24 @@ public class WebOAuthSecurityConfig {
                 .userService(oAuth2UserCustomService);
 
         http.logout()
-                .logoutSuccessUrl("login");
+                .logoutSuccessUrl("/login");
 
         //api로 시작하는 url인 경우 401 상태 코드를 반환하도록 예외처리
         http.exceptionHandling()
                 .defaultAuthenticationEntryPointFor(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
                         new AntPathRequestMatcher("/api/**"));
+
+
         return http.build();
     }
 
     @Bean
     public OAuth2SuccessHandler oAuth2SuccessHandler() {
-        return new OAuth2SuccessHandler(tokenProvider, refreshTokenRepository
-        , oAuth2AuthorizationRequestBasedOnCookieRepository(), userService);
+        return new OAuth2SuccessHandler(tokenProvider,
+                refreshTokenRepository,
+                oAuth2AuthorizationRequestBasedOnCookieRepository(),
+                userService
+        );
     }
 
     @Bean

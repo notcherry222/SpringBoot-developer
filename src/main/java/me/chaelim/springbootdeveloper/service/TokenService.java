@@ -1,7 +1,7 @@
 package me.chaelim.springbootdeveloper.service;
 
 import lombok.RequiredArgsConstructor;
-import me.chaelim.springbootdeveloper.config.TokenProvider;
+import me.chaelim.springbootdeveloper.config.jwt.TokenProvider;
 import me.chaelim.springbootdeveloper.domain.User;
 import org.springframework.stereotype.Service;
 

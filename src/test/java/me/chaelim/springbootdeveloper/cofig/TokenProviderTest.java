@@ -1,8 +1,8 @@
 package me.chaelim.springbootdeveloper.cofig;
 
 import io.jsonwebtoken.Jwts;
-import me.chaelim.springbootdeveloper.config.JwtProperties;
-import me.chaelim.springbootdeveloper.config.TokenProvider;
+import me.chaelim.springbootdeveloper.config.jwt.JwtProperties;
+import me.chaelim.springbootdeveloper.config.jwt.TokenProvider;
 import me.chaelim.springbootdeveloper.domain.User;
 import me.chaelim.springbootdeveloper.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;

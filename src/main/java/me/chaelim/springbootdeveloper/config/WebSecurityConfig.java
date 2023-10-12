@@ -1,8 +1,7 @@
 //package me.chaelim.springbootdeveloper.config;
-/**
- * OAuth2와 JWT를 함께 사용하려면 다른 설정 사용해야 함
- */
-//
+
+//OAuth2와 JWT를 함께 사용하려면 다른 설정 사용해야 함
+
 //import lombok.RequiredArgsConstructor;
 //import me.chaelim.springbootdeveloper.service.UserDetailService;
 //import org.springframework.context.annotation.Bean;

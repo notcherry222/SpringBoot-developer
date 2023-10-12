@@ -1,4 +1,4 @@
-package me.chaelim.springbootdeveloper.config;
+package me.chaelim.springbootdeveloper.config.jwt;
 
 import lombok.Getter;
 import lombok.Setter;

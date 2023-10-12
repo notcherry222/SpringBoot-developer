@@ -2,7 +2,7 @@ package me.chaelim.springbootdeveloper.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.chaelim.springbootdeveloper.cofig.JwtFactory;
-import me.chaelim.springbootdeveloper.config.JwtProperties;
+import me.chaelim.springbootdeveloper.config.jwt.JwtProperties;
 import me.chaelim.springbootdeveloper.domain.RefreshToken;
 import me.chaelim.springbootdeveloper.domain.User;
 import me.chaelim.springbootdeveloper.dto.request.CreateAccessTokenRequestDto;

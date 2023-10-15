@@ -5,45 +5,45 @@ const modifyButton = document.getElementById('modify-btn');
 //등록 기능
 if (createButton) {
 //클릭 이벤트가 감지되면 생성 API 요청
-    createButton.addEventListener('click', (event) => {
-        body = JSON.stringify({
-            title: document.getElementById("title").value,
-            content: document.getElementById("content").value
+     createButton.addEventListener('click', event => {
+            body = JSON.stringify({
+                title: document.getElementById('title').value,
+                content: document.getElementById('content').value
+            });
+            function success() {
+                alert('등록 완료되었습니다.');
+                location.replace('/articles');
+            };
+            function fail() {
+                alert('등록 실패했습니다.');
+                location.replace('/articles');
+            };
+
+            httpRequest('POST','/api/articles', body, success, fail)
         });
-        function success() {
-            alert("등록이 완료되었습니다.");
-            location.replace("/articles");
-        }
-        function fail() {
-            alert("등록이 실패했습니다.");
-            location.replace("/articles");
-        }
-        httpRequest("POST", "/api/articles", body, success, fail);
-    });
-}
+    }
+
 
 //삭제 기능
 if (deleteButton) {
     deleteButton.addEventListener('click', event => {
         let id = document.getElementById('article-id').value;
-
         function success() {
             alert('삭제가 완료되었습니다.');
             location.replace('/articles');
         }
 
         function fail() {
-            alert('삭제가 실패했습니다.');
+            alert('삭제 실패했습니다.');
             location.replace('/articles');
         }
-        httpRequest("DELETE", "/api/articles/" + id, null, success, fail);
+
+        httpRequest('DELETE',`/api/articles/${id}`, null, success, fail);
     });
 }
 
 //수정 가능
 //id가 modify-btn인 엘리먼트 조회
-const modifyButton = document.getElementById('modify-btn');
-
 if (modifyButton) {
     modifyButton.addEventListener('click', event => {
         let params = new URLSearchParams(location.search);
@@ -71,17 +71,18 @@ if (modifyButton) {
 //쿠키를 가져오는 함수
 function getCookie(key) {
     var result = null;
-    var cookie = document.cookie.split(";");
+    var cookie = document.cookie.split(';');
     cookie.some(function (item) {
-        item = item.replace(" ", " ");
+        item = item.replace(' ', '');
 
-        var dic = item.split("=");
+        var dic = item.split('=');
 
-        if (key == dic[0]) {
+        if (key === dic[0]) {
             result = dic[1];
             return true;
         }
     });
+
     return result;
 }
 

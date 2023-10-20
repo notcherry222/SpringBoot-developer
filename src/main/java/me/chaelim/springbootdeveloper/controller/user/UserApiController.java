@@ -1,4 +1,4 @@
-package me.chaelim.springbootdeveloper.controller;
+package me.chaelim.springbootdeveloper.controller.user;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,15 +9,14 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
 public class UserApiController {
     private final UserService userService;
 
-    @PostMapping("/user")
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
     public String signup(UserSignUpRequestDto dto) {
         userService.save(dto);
         return "redirect:/login";

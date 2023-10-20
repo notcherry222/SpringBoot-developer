@@ -1,4 +1,4 @@
-package me.chaelim.springbootdeveloper.controller;
+package me.chaelim.springbootdeveloper.controller.blog;
 
 import lombok.RequiredArgsConstructor;
 import me.chaelim.springbootdeveloper.domain.Article;

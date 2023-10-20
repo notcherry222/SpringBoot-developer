@@ -27,7 +27,7 @@ public class BlogViewController {
 
         model.addAttribute("articles", articles);
 
-        return "articleList";
+        return "articleList"; // articles.html 뷰 조회
     }
 
     //하나의 포스트 조회 ('보러 가기' 클릭 후)
